@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DashaNikitinaKt-41-22.props" />
+</Project>

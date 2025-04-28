@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\alsu-\\Desktop\\\u0411\u0414 \u041B\u0410\u0411\u042B\\DashaNikitinaKt-41-22\\",
+  "WorkspaceRootPath": "C:\\Users\\alsu-\\source\\repos\\dasha-nikitina-kt-41-22\\",
   "Documents": [],
   "DocumentGroupContainers": [
     {
@@ -21,7 +21,11 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{e5c86464-96be-4d7c-9a8b-abcb3bbf5f92}"
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
