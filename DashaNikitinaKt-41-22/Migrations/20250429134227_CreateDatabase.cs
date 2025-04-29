@@ -16,7 +16,7 @@ namespace DashaNikitinaKt_41_22.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -42,7 +42,7 @@ namespace DashaNikitinaKt_41_22.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,41 +98,24 @@ namespace DashaNikitinaKt_41_22.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TeacherDisciplines",
-                columns: table => new
-                {
-                    DisciplinesId = table.Column<int>(type: "int", nullable: false),
-                    TeachersId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TeacherDisciplines", x => new { x.DisciplinesId, x.TeachersId });
-                    table.ForeignKey(
-                        name: "FK_TeacherDisciplines_Disciplines_DisciplinesId",
-                        column: x => x.DisciplinesId,
-                        principalTable: "Disciplines",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TeacherDisciplines_Teachers_TeachersId",
-                        column: x => x.TeachersId,
-                        principalTable: "Teachers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Workloads",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Hours = table.Column<int>(type: "int", nullable: false),
-                    TeacherId = table.Column<int>(type: "int", nullable: false)
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    DisciplineId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Workloads", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Workloads_Disciplines_DisciplineId",
+                        column: x => x.DisciplineId,
+                        principalTable: "Disciplines",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Workloads_Teachers_TeacherId",
                         column: x => x.TeacherId,
@@ -144,12 +127,8 @@ namespace DashaNikitinaKt_41_22.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Departments_HeadOfDepartmentId",
                 table: "Departments",
-                column: "HeadOfDepartmentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TeacherDisciplines_TeachersId",
-                table: "TeacherDisciplines",
-                column: "TeachersId");
+                column: "HeadOfDepartmentId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_AcademicDegreeId",
@@ -165,6 +144,11 @@ namespace DashaNikitinaKt_41_22.Migrations
                 name: "IX_Teachers_PositionId",
                 table: "Teachers",
                 column: "PositionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Workloads_DisciplineId",
+                table: "Workloads",
+                column: "DisciplineId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Workloads_TeacherId",
@@ -186,9 +170,6 @@ namespace DashaNikitinaKt_41_22.Migrations
             migrationBuilder.DropForeignKey(
                 name: "FK_Departments_Teachers_HeadOfDepartmentId",
                 table: "Departments");
-
-            migrationBuilder.DropTable(
-                name: "TeacherDisciplines");
 
             migrationBuilder.DropTable(
                 name: "Workloads");

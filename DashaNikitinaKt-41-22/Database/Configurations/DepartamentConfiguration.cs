@@ -13,8 +13,14 @@ public class DepartmentConfiguration : IEntityTypeConfiguration<Department>
 
         // Связь "один-к-одному" с заведующим кафедрой
         builder.HasOne(d => d.HeadOfDepartment)
-               .WithMany()
-               .HasForeignKey(d => d.HeadOfDepartmentId)
-               .OnDelete(DeleteBehavior.Restrict); // Запрет удаления заведующего, если он связан с кафедрой
+               .WithOne()
+               .HasForeignKey<Department>(d => d.HeadOfDepartmentId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+        // Связь "один-ко-многим" с преподавателями
+        builder.HasMany(d => d.Teachers)
+               .WithOne(t => t.Department)
+               .HasForeignKey(t => t.DepartmentId)
+               .OnDelete(DeleteBehavior.Restrict);
     }
 }

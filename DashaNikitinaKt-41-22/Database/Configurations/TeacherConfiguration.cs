@@ -29,9 +29,10 @@ public class TeacherConfiguration : IEntityTypeConfiguration<Teacher>
                .HasForeignKey(t => t.PositionId)
                .OnDelete(DeleteBehavior.Restrict);
 
-        // Связь "многие-ко-многим" с дисциплинами
-        builder.HasMany(t => t.Disciplines)
-               .WithMany(d => d.Teachers)
-               .UsingEntity(j => j.ToTable("TeacherDisciplines"));
+        // Связь "один-ко-многим" с нагрузкой
+        builder.HasMany(t => t.Workloads)
+               .WithOne(w => w.Teacher)
+               .HasForeignKey(w => w.TeacherId)
+               .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -31,8 +31,8 @@ namespace DashaNikitinaKt_41_22.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -57,7 +57,8 @@ namespace DashaNikitinaKt_41_22.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HeadOfDepartmentId");
+                    b.HasIndex("HeadOfDepartmentId")
+                        .IsUnique();
 
                     b.ToTable("Departments", (string)null);
                 });
@@ -90,8 +91,8 @@ namespace DashaNikitinaKt_41_22.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -139,6 +140,9 @@ namespace DashaNikitinaKt_41_22.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("DisciplineId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Hours")
                         .HasColumnType("int");
 
@@ -147,31 +151,18 @@ namespace DashaNikitinaKt_41_22.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DisciplineId");
+
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Workloads", (string)null);
                 });
 
-            modelBuilder.Entity("DisciplineTeacher", b =>
-                {
-                    b.Property<int>("DisciplinesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeachersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DisciplinesId", "TeachersId");
-
-                    b.HasIndex("TeachersId");
-
-                    b.ToTable("TeacherDisciplines", (string)null);
-                });
-
             modelBuilder.Entity("DashaNikitinaKt_41_22.Models.Department", b =>
                 {
                     b.HasOne("DashaNikitinaKt_41_22.Models.Teacher", "HeadOfDepartment")
-                        .WithMany()
-                        .HasForeignKey("HeadOfDepartmentId")
+                        .WithOne()
+                        .HasForeignKey("DashaNikitinaKt_41_22.Models.Department", "HeadOfDepartmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -207,28 +198,21 @@ namespace DashaNikitinaKt_41_22.Migrations
 
             modelBuilder.Entity("DashaNikitinaKt_41_22.Models.Workload", b =>
                 {
+                    b.HasOne("DashaNikitinaKt_41_22.Models.Discipline", "Discipline")
+                        .WithMany("Workloads")
+                        .HasForeignKey("DisciplineId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("DashaNikitinaKt_41_22.Models.Teacher", "Teacher")
                         .WithMany("Workloads")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Discipline");
+
                     b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("DisciplineTeacher", b =>
-                {
-                    b.HasOne("DashaNikitinaKt_41_22.Models.Discipline", null)
-                        .WithMany()
-                        .HasForeignKey("DisciplinesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("DashaNikitinaKt_41_22.Models.Teacher", null)
-                        .WithMany()
-                        .HasForeignKey("TeachersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DashaNikitinaKt_41_22.Models.AcademicDegree", b =>
@@ -239,6 +223,11 @@ namespace DashaNikitinaKt_41_22.Migrations
             modelBuilder.Entity("DashaNikitinaKt_41_22.Models.Department", b =>
                 {
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("DashaNikitinaKt_41_22.Models.Discipline", b =>
+                {
+                    b.Navigation("Workloads");
                 });
 
             modelBuilder.Entity("DashaNikitinaKt_41_22.Models.Position", b =>

@@ -1,10 +1,13 @@
-﻿namespace DashaNikitinaKt_41_22.Models;
+﻿using System.Collections.Generic;
+
+namespace DashaNikitinaKt_41_22.Models;
 
 public class Discipline
 {
     public int Id { get; set; } // Первичный ключ
+
     public string Name { get; set; } = null!; // Название дисциплины
 
-    // Связь "многие-ко-многим" с преподавателями
-    public ICollection<Teacher> Teachers { get; set; } = new List<Teacher>();
+    // Связь "один-ко-многим" с нагрузкой
+    public ICollection<Workload> Workloads { get; set; } = new List<Workload>();
 }

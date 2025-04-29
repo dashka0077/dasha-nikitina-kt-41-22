@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DashaNikitinaKt-41-22")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+fd911c2cc646478e0cc207dc28bcd411c399262f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb7bb0893f7004e3fc3ca9b43be94f342364a317")]
 [assembly: System.Reflection.AssemblyProductAttribute("DashaNikitinaKt-41-22")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DashaNikitinaKt-41-22")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
